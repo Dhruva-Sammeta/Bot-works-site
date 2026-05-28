@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Switzer Font */
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 220 25% 4%;
+    --foreground: 210 20% 93%;
+
+    --card: 220 22% 7%;
+    --card-foreground: 210 20% 93%;
+
+    --popover: 220 22% 7%;
+    --popover-foreground: 210 20% 93%;
+
+    --primary: 220 35% 10%;
+    --primary-foreground: 210 20% 93%;
+
+    --secondary: 200 80% 50%;
+    --secondary-foreground: 220 25% 4%;
+
+    --muted: 220 18% 11%;
+    --muted-foreground: 220 12% 45%;
+
+    --accent: 200 80% 50%;
+    --accent-foreground: 220 25% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 18% 13%;
+    --input: 220 18% 13%;
+    --ring: 200 80% 50%;
+
+    --radius: 0.75rem;
+
+    /* Synthwave accents */
+    --synthwave-pink: 330 80% 55%;
+    --synthwave-cyan: 185 90% 55%;
+    --synthwave-purple: 270 70% 50%;
+
+    /* Custom tokens */
+    --brand: 220 65% 42%;
+    --brand-glow: 200 80% 50%;
+    --brand-deep: 220 35% 5%;
+    --brand-surface: 220 22% 8%;
+    --teal: 200 80% 50%;
+    --teal-muted: 200 45% 30%;
+    --navy: 220 25% 4%;
+    --navy-light: 220 18% 12%;
+
+    --gradient-brand: linear-gradient(135deg, hsl(220 65% 42%), hsl(200 80% 50%));
+    --gradient-dark: linear-gradient(180deg, hsl(220 25% 4%) 0%, hsl(220 30% 7%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 22% 7%) 0%, hsl(220 22% 10%) 100%);
+    --shadow-brand: 0 0 40px -10px hsl(200 80% 50% / 0.25);
+    --shadow-glow: 0 0 80px -20px hsl(200 80% 50% / 0.15);
+
+    --sidebar-background: 220 25% 4%;
+    --sidebar-foreground: 210 20% 93%;
+    --sidebar-primary: 200 80% 50%;
+    --sidebar-primary-foreground: 220 25% 4%;
+    --sidebar-accent: 220 18% 11%;
+    --sidebar-accent-foreground: 210 20% 93%;
+    --sidebar-border: 220 18% 13%;
+    --sidebar-ring: 200 80% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground;
+    background: linear-gradient(180deg, #000000 0%, #000130 100%);
+    background-attachment: fixed;
+    font-family: 'Switzer', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Switzer', system-ui, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-brand);
+  }
+
+  .border-glow {
+    border-color: hsl(var(--teal) / 0.3);
+  }
+
+  .border-glow-strong {
+    border-color: hsl(var(--teal) / 0.5);
+  }
+
+  .bg-brand-surface {
+    background: var(--gradient-card);
+  }
+
+  .shadow-brand {
+    box-shadow: var(--shadow-brand);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Word/letter split helpers */
+  .split-word, .split-char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* Line reveal clip */
+  .line-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Content containment for off-screen sections — massive perf win */
+.contain-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220 25% 4%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(220 18% 16%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(200 80% 50% / 0.4);
+}
+
+/* Selection */
+::selection {
+  background: hsl(200 80% 50% / 0.3);
+  color: hsl(210 20% 93%);
+}
