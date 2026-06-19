@@ -75,10 +75,11 @@ const Footer = () => {
           <div className="footer-reveal space-y-5">
             {[
               { label: "EMAIL", value: "CONTACT@BOT-WORKS.TECH", href: "mailto:contact@bot-works.tech" },
-              { label: "WHATSAPP", value: "+91 7842286303", href: "https://wa.me/917842286303" },
+              { label: "LEAD 1 WHATSAPP", value: "+91 7842286303", href: "https://wa.me/917842286303" },
+              { label: "LEAD 2 WHATSAPP", value: "+91 9000153644", href: "https://wa.me/919000153644" },
               { label: "LOCATION", value: "HYDERABAD, INDIA", href: null },
             ].map((item) => (
-              <div key={item.label} className="border-b border-border/50 pb-3">
+              <div key={item.value} className="border-b border-border/50 pb-3">
                 <span className="text-[8px] tracking-[0.3em] text-muted-foreground/30 block mb-1 font-medium">{item.label}</span>
                 {item.href ? (
                   <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined} className="text-foreground text-[12px] hover:text-secondary transition-colors duration-400 tracking-[0.02em]">

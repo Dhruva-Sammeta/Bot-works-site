@@ -37,10 +37,10 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      <div 
+      <div
         className={`transition-all duration-700 ease-out transform bg-background/80 backdrop-blur-2xl border border-border/50 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] p-2 sm:p-4 max-w-[90vw] sm:max-w-md w-full mx-auto overflow-hidden ${
           fadeOut 
-            ? "scale-95 opacity-0" 
+            ? "translate-y-0 opacity-100 scale-100" 
             : videoReady 
               ? "translate-y-0 opacity-100 scale-100" 
               : "translate-y-12 opacity-0 scale-95"

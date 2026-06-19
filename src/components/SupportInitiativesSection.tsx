@@ -60,7 +60,6 @@ const SupportInitiativesSection = () => {
 
         <div className="grid lg:grid-cols-3 gap-0 border-b border-border py-10 sm:py-14">
           <div className="group pr-6 sm:pr-10 border-r-0 lg:border-r border-border py-6 px-6 sm:py-8 sm:px-8 -ml-6 -mt-6 lg:-ml-8 lg:-mt-8 mb-4 lg:mb-0 support-block hover:bg-secondary transition-colors duration-100 cursor-default">
-            <span className="text-[10px] tracking-[0.35em] uppercase text-secondary group-hover:text-secondary-foreground/60 transition-colors duration-100 mb-4 block font-medium">PART A</span>
             <h3 className="text-2xl font-bold text-foreground group-hover:text-secondary-foreground transition-colors duration-100 mb-4">Build24 — Launch & Event Support</h3>
             <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
               Sponsor the 24-hour Build24 launch event: venue, logistics, mentoring, judging, and documentation. This is the public proof point that shows Bot Works can plan, build, and deliver under pressure.
@@ -70,31 +69,44 @@ const SupportInitiativesSection = () => {
             </p>
           </div>
 
-          <div className="group pl-6 sm:pl-10 pr-6 sm:pr-10 border-r-0 lg:border-r border-border py-6 px-6 sm:py-8 sm:px-8 -mt-6 sm:-mr-0 lg:-mt-8 mb-4 lg:mb-0 support-block hover:bg-secondary transition-colors duration-100 cursor-default">
-            <span className="text-[10px] tracking-[0.35em] uppercase text-secondary group-hover:text-secondary-foreground/60 transition-colors duration-100 mb-4 block font-medium">PART B</span>
-            <h3 className="text-2xl font-bold text-foreground group-hover:text-secondary-foreground transition-colors duration-100 mb-4">Project Reboot — Sustained Impact</h3>
-            <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
-              Sponsor the refurbishment programme: collect, repair, wipe, install Linux on, and deliver laptops to verified NGO partners. The target is 15 refurbished machines, with a realistic path to lower-cost scaling if donations reduce procurement.
-            </p>
-            <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
-              The rough summary is straightforward: one laptop can serve up to three students in some NGO settings, functional machines are diverted from e-waste, and sponsors get a clean CSR package with reporting, beneficiary data, photos, and the chance to file against Schedule VII.
-            </p>
-            <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
-              This is not charity theatre. It is a repeatable student-built groundwork programme that creates real access, real documentation, and a handoff for the next cohort.
-            </p>
-            <div className="mt-3">
+          <div className="group pl-6 sm:pl-10 pr-6 sm:pr-10 border-r-0 lg:border-r border-border py-6 px-6 sm:py-8 sm:px-8 -mt-6 sm:-mr-0 lg:-mt-8 mb-4 lg:mb-0 support-block hover:bg-secondary transition-colors duration-100 cursor-default flex flex-col h-full">
+            <div className="flex-grow">
+              <h3 className="text-2xl font-bold text-foreground group-hover:text-secondary-foreground transition-colors duration-100 mb-4">Project Reboot — Sustained Impact</h3>
+              <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
+                Sponsor the refurbishment programme: collect, repair, wipe, install Linux on, and deliver laptops to verified NGO partners. The target is 15 refurbished machines, with a realistic path to lower-cost scaling if donations reduce procurement.
+              </p>
+              <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
+                The rough summary is straightforward: one laptop can serve up to three students in some NGO settings, functional machines are diverted from e-waste, and sponsors get a clean CSR package with reporting, beneficiary data, photos, and the chance to file against Schedule VII.
+              </p>
+              <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
+                This is not charity theatre. It is a repeatable student-built groundwork programme that creates real access, real documentation, and a handoff for the next cohort.
+              </p>
+            </div>
+            <div className="mt-auto pt-5">
               <a href="mailto:contact@bot-works.tech?subject=Request%20Project%20Reboot%20CAS%20Plan" className="inline-flex font-bold text-secondary-foreground bg-secondary px-5 py-2.5 text-[11px] tracking-[0.1em] hover:brightness-110 transition-all duration-300">
                 REQUEST THE PROJECT REBOOT PLAN →
               </a>
             </div>
           </div>
 
-          <div className="group pl-6 sm:pl-10 lg:pl-10 py-6 px-6 sm:py-8 sm:px-8 -mt-6 sm:-mr-8 lg:-mt-8 support-block hover:bg-secondary transition-colors duration-100 cursor-default">
-            <span className="text-[10px] tracking-[0.35em] uppercase text-secondary group-hover:text-secondary-foreground/60 transition-colors duration-100 mb-4 block font-medium">PART C</span>
-            <h3 className="text-2xl font-bold text-foreground group-hover:text-secondary-foreground transition-colors duration-100 mb-4">Proteus Arc</h3>
-            <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7]">
-              Tackling the 90% undiagnosed Alzheimer's rate across India's 8.8M patients using a proprietary algorithm and cost-effective EEG for robust, accessible diagnosis.
-            </p>
+          <div className="group pl-6 sm:pl-10 lg:pl-10 py-6 px-6 sm:py-8 sm:px-8 -mt-6 sm:-mr-8 lg:-mt-8 support-block hover:bg-secondary transition-colors duration-100 cursor-default relative overflow-hidden flex flex-col h-full">
+            <svg className="absolute inset-0 w-full h-full text-secondary/15 pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M0,50 L20,50 L25,30 L35,70 L45,20 L55,80 L65,40 L70,50 L100,50" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+            </svg>
+            <div className="relative z-10 flex-grow">
+              <h3 className="text-2xl font-bold text-foreground group-hover:text-secondary-foreground transition-colors duration-100 mb-4">Proteus Arc</h3>
+              <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7] mb-3">
+                Proteus Arc is an implementation-focused Alzheimer’s detection initiative that uses EEG data to provide accessible and scalable supportative diagnosises through considering real-world conditions. The goal is to make early Alzheimer’s assessment more accessible for everyone.
+              </p>
+              <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors duration-100 text-[13px] leading-[1.7]">
+                Having mentors from UoH, and the core team of the India Segment of the World Economic Forum's Davos Initiative, the algorithm is getting set for real-world deployment and impact.
+              </p>
+            </div>
+            <div className="mt-auto pt-5 relative z-10">
+              <a href="mailto:contact@bot-works.tech?subject=Request%20Proteus%20Arc%20Plan" className="inline-flex font-bold text-secondary-foreground bg-secondary px-5 py-2.5 text-[11px] tracking-[0.1em] hover:brightness-110 transition-all duration-300">
+                REQUEST THE PROTEUS ARC PLAN →
+              </a>
+            </div>
           </div>
         </div>
       </div>
