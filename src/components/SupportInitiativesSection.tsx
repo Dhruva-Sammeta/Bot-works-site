@@ -103,7 +103,7 @@ const SupportInitiativesSection = () => {
               </p>
             </div>
             <div className="mt-auto pt-5 relative z-10">
-              <a href="mailto:contact@bot-works.tech?subject=Request%20Proteus%20Arc%20Plan" className="inline-flex font-bold text-secondary-foreground bg-secondary px-5 py-2.5 text-[11px] tracking-[0.1em] hover:brightness-110 transition-all duration-300">
+              <a href="mailto:nagapranayimmadi@gmail.com?subject=Request%20Proteus%20Arc%20Plan" className="inline-flex font-bold text-secondary-foreground bg-secondary px-5 py-2.5 text-[11px] tracking-[0.1em] hover:brightness-110 transition-all duration-300">
                 REQUEST THE PROTEUS ARC PLAN →
               </a>
             </div>
