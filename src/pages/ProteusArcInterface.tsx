@@ -177,13 +177,13 @@ export default function ProteusArcInterface() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] text-[#1E293B] font-serif antialiased pb-12 selection:bg-blue-100">
-      {/* Sleek Top Navbar */}
-      <header ref={headerRef} className="sticky top-0 z-50 bg-white border-b border-[#D2D6DC] shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div className="min-h-screen bg-[#F0F4F8] text-[#1E293B] font-sans antialiased pb-12 selection:bg-blue-100">
+      {/* Floating Top Navbar */}
+      <header ref={headerRef} className="sticky top-4 z-50 max-w-7xl mx-auto px-4 w-full">
+        <div className="bg-white/90 backdrop-blur-md border border-[#E2E8F0] shadow-md rounded-2xl px-6 h-20 flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center space-x-3 select-none">
-            <div className="relative flex items-center justify-center w-12 h-12 bg-white rounded-lg border border-[#E2E8F0] shadow-sm p-1.5 overflow-hidden">
+            <div className="relative flex items-center justify-center w-12 h-12 overflow-hidden">
               <img 
                 src="/images/proteus-logo.png" 
                 alt="Proteus Arc Logo" 
@@ -191,13 +191,13 @@ export default function ProteusArcInterface() {
               />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-[#0B1E3F] uppercase font-serif">Proteus Arc</h1>
+              <h1 className="text-xl font-bold tracking-tight text-[#0B1E3F] uppercase font-sans">Proteus Arc</h1>
               <p className="text-[10px] text-blue-600 font-sans font-semibold tracking-widest uppercase">Diagnostic Suite</p>
             </div>
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex space-x-1 font-serif">
+          <nav className="flex space-x-1 font-sans">
             <button
               onClick={() => setActiveTab("guide")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
@@ -249,8 +249,8 @@ export default function ProteusArcInterface() {
             </button>
           </nav>
 
-          {/* User profile capsule (recreating the blue/indigo pill header) */}
-          <div className="flex items-center bg-[#0B1E3F] text-white px-5 py-2.5 rounded-full shadow-md select-none font-serif">
+          {/* User profile capsule */}
+          <div className="flex items-center bg-[#0B1E3F] text-white px-5 py-2.5 rounded-full shadow-md select-none font-sans">
             <span className="text-sm font-medium mr-3">
               Welcome, <span className="font-bold text-blue-300">admin</span>
             </span>
@@ -262,7 +262,7 @@ export default function ProteusArcInterface() {
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-6 mt-8">
+      <main className="max-w-7xl mx-auto px-6 mt-12">
         
         {/* TABS CONTAINER */}
         <div ref={contentContainerRef} className="transition-all duration-300">
@@ -271,7 +271,7 @@ export default function ProteusArcInterface() {
           {activeTab === "guide" && (
             <div className="space-y-6">
               <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm">
-                <h2 className="text-xl font-bold text-[#0B1E3F] mb-2 flex items-center gap-2 font-serif">
+                <h2 className="text-xl font-bold text-[#0B1E3F] mb-2 flex items-center gap-2 font-sans">
                   <Info className="w-5 h-5 text-blue-600" />
                   Algorithm Quick Guide
                 </h2>
@@ -282,10 +282,10 @@ export default function ProteusArcInterface() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Step 1 */}
                   <div className="bg-[#F8FAFC] rounded-xl p-6 border border-[#E2E8F0]">
-                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-serif">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-sans">
                       1
                     </div>
-                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-serif">Patient Setup</h3>
+                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-sans">Patient Setup</h3>
                     <p className="text-xs text-gray-500 leading-relaxed font-sans">
                       Initialize patient recording files inside your standard repository. Ensure a valid Patient ID identifier is assigned matching database conventions.
                     </p>
@@ -293,10 +293,10 @@ export default function ProteusArcInterface() {
 
                   {/* Step 2 */}
                   <div className="bg-[#F8FAFC] rounded-xl p-6 border border-[#E2E8F0]">
-                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-serif">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-sans">
                       2
                     </div>
-                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-serif">Data Upload</h3>
+                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-sans">Data Upload</h3>
                     <p className="text-xs text-gray-500 leading-relaxed font-sans">
                       Select or drag-and-drop the matching patient's high-resolution EEG wave imaging file. Input patient cognitive baseline scores if applicable.
                     </p>
@@ -304,10 +304,10 @@ export default function ProteusArcInterface() {
 
                   {/* Step 3 */}
                   <div className="bg-[#F8FAFC] rounded-xl p-6 border border-[#E2E8F0]">
-                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-serif">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-800 font-bold rounded-lg flex items-center justify-center mb-4 font-sans">
                       3
                     </div>
-                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-serif">Execute & Analyze</h3>
+                    <h3 className="font-bold text-[#0B1E3F] mb-2 text-sm uppercase tracking-wide font-sans">Execute & Analyze</h3>
                     <p className="text-xs text-gray-500 leading-relaxed font-sans">
                       Run calculation metrics. Monitor logs stream dynamically. Check classification confidence levels inside the Results panel upon completion.
                     </p>
@@ -317,7 +317,7 @@ export default function ProteusArcInterface() {
                 <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wide font-serif">Regulatory Note</h4>
+                    <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wide font-sans">Regulatory Note</h4>
                     <p className="text-[11px] text-blue-700 leading-relaxed mt-1 font-sans">
                       Proteus Arc is currently designed for clinical research evaluation. Always cross-verify statistical confidence ratings with primary raw EEG spectral parameters before diagnostic conclusions.
                     </p>
@@ -332,14 +332,14 @@ export default function ProteusArcInterface() {
             <div className="space-y-8">
               {/* Form Card */}
               <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm">
-                <h2 className="text-xl font-bold text-[#0B1E3F] mb-6 font-serif">Start a Calculation Run</h2>
+                <h2 className="text-xl font-bold text-[#0B1E3F] mb-6 font-sans">Start a Calculation Run</h2>
                 
                 {/* Inputs Row */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 font-serif">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 font-sans">
                   
                   {/* Patient Id */}
                   <div className="relative">
-                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-serif">
+                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-sans">
                       Patient Id *
                     </label>
                     <Input
@@ -348,13 +348,13 @@ export default function ProteusArcInterface() {
                       placeholder="e.g. sub04"
                       value={patientId}
                       onChange={(e) => setPatientId(e.target.value)}
-                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-serif"
+                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-sans"
                     />
                   </div>
 
                   {/* Patient's Imaging */}
                   <div className="relative">
-                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-serif">
+                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-sans">
                       Patient's Imaging *
                     </label>
                     <Input
@@ -363,13 +363,13 @@ export default function ProteusArcInterface() {
                       placeholder="e.g. sub04-09232016"
                       value={imagingFile}
                       onChange={(e) => setImagingFile(e.target.value)}
-                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-serif"
+                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-sans"
                     />
                   </div>
 
                   {/* Patient's Cogscore */}
                   <div className="relative">
-                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-serif">
+                    <label className="absolute -top-2 left-3 px-1.5 bg-white text-[11px] font-semibold text-[#4B5563] z-10 font-sans">
                       Patient's Cogscore *
                     </label>
                     <Input
@@ -378,7 +378,7 @@ export default function ProteusArcInterface() {
                       placeholder="e.g. sub04-09"
                       value={cogScore}
                       onChange={(e) => setCogScore(e.target.value)}
-                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-serif"
+                      className="w-full h-12 bg-white border border-[#CBD5E1] rounded-lg px-4 text-sm focus:border-blue-600 focus:ring-blue-600 transition-all font-medium text-[#111827] font-sans"
                     />
                   </div>
 
@@ -389,7 +389,7 @@ export default function ProteusArcInterface() {
                   <Button
                     onClick={runSimulation}
                     disabled={isRunning}
-                    className={`h-11 px-8 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-200 font-serif ${
+                    className={`h-11 px-8 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-200 font-sans ${
                       isRunning 
                         ? "bg-gray-200 text-gray-400 cursor-not-allowed" 
                         : "bg-[#0B1E3F] text-white hover:bg-opacity-95 shadow-sm active:scale-95"
@@ -399,7 +399,7 @@ export default function ProteusArcInterface() {
                   </Button>
 
                   {isRunning && (
-                    <div className="flex items-center space-x-2 text-xs text-blue-600 font-semibold font-serif">
+                    <div className="flex items-center space-x-2 text-xs text-blue-600 font-semibold font-sans">
                       <span className="animate-pulse">Processing algorithm calculations</span>
                       <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full animate-ping"></span>
                     </div>
@@ -414,7 +414,7 @@ export default function ProteusArcInterface() {
                 {(isRunning || progress > 0) && (
                   <div className="bg-white rounded-xl border border-[#D2D6DC] p-6 shadow-sm">
                     <div className="flex justify-between items-center mb-3">
-                      <h3 className="text-xs font-bold text-[#0B1E3F] uppercase tracking-wider flex items-center gap-1.5 font-serif">
+                      <h3 className="text-xs font-bold text-[#0B1E3F] uppercase tracking-wider flex items-center gap-1.5 font-sans">
                         <TrendingUp className="w-4 h-4 text-blue-600" />
                         Algorithm Completion Progress
                       </h3>
@@ -470,14 +470,14 @@ export default function ProteusArcInterface() {
           {/* TAB 3: RESULTS */}
           {activeTab === "results" && (
             <div className="space-y-6">
-              <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm font-serif">
+              <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm font-sans">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-bold text-[#0B1E3F] mb-1 flex items-center gap-2 font-serif">
+                    <h2 className="text-xl font-bold text-[#0B1E3F] mb-1 flex items-center gap-2 font-sans">
                       <BrainCircuit className="w-5 h-5 text-blue-600" />
                       Diagnostic Calculation Results
                     </h2>
-                    <p className="text-xs text-gray-500 font-serif">
+                    <p className="text-xs text-gray-500 font-sans">
                       View recent calculated classifications and statistics for completed Proteus Arc operations.
                     </p>
                   </div>
@@ -486,13 +486,13 @@ export default function ProteusArcInterface() {
                 {resultsList.length === 0 ? (
                   <div className="text-center py-20 bg-[#F8FAFC] rounded-xl border border-dashed border-[#CBD5E1]">
                     <Database className="w-12 h-12 text-[#94A3B8] mx-auto mb-4" />
-                    <h3 className="text-sm font-bold text-[#334155] uppercase tracking-wide font-serif">No Results Available</h3>
-                    <p className="text-xs text-gray-400 mt-1 max-w-sm mx-auto font-serif">
+                    <h3 className="text-sm font-bold text-[#334155] uppercase tracking-wide font-sans">No Results Available</h3>
+                    <p className="text-xs text-gray-400 mt-1 max-w-sm mx-auto font-sans">
                       Run the algorithm inside the "Testing Run" tab first to generate medical diagnostic results.
                     </p>
                   </div>
                 ) : (
-                  <div className="space-y-6 font-serif">
+                  <div className="space-y-6 font-sans">
                     {resultsList.map((res, i) => (
                       <div key={i} className="border border-[#E2E8F0] rounded-xl p-6 hover:shadow-md transition-all duration-200 bg-white">
                         {/* Header Details */}
@@ -512,16 +512,16 @@ export default function ProteusArcInterface() {
                         {/* Calculations Output grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div>
-                            <h4 className="text-[11px] font-bold text-[#475569] uppercase tracking-wider mb-2 font-serif">Input Settings</h4>
-                            <div className="space-y-1 bg-[#F8FAFC] p-3 rounded-lg border border-gray-150 text-xs">
-                              <p className="text-[#334155]"><strong className="text-gray-500 font-serif">EEG Recording:</strong> {res.imaging}</p>
-                              <p className="text-[#334155]"><strong className="text-gray-500 font-serif">Cognitive Score:</strong> {res.cogscore}</p>
+                            <h4 className="text-[11px] font-bold text-[#475569] uppercase tracking-wider mb-2 font-sans">Input Settings</h4>
+                            <div className="space-y-1 bg-[#F8FAFC] p-3 rounded-lg border border-gray-150 text-xs font-sans">
+                              <p className="text-[#334155]"><strong className="text-gray-500 font-sans">EEG Recording:</strong> {res.imaging}</p>
+                              <p className="text-[#334155]"><strong className="text-gray-500 font-sans">Cognitive Score:</strong> {res.cogscore}</p>
                             </div>
                           </div>
 
                           <div>
-                            <h4 className="text-[11px] font-bold text-[#475569] uppercase tracking-wider mb-2 font-serif">Algorithm Diagnostics</h4>
-                            <div className="space-y-1 bg-emerald-50/50 p-3 rounded-lg border border-emerald-100/50 text-xs">
+                            <h4 className="text-[11px] font-bold text-[#475569] uppercase tracking-wider mb-2 font-sans">Algorithm Diagnostics</h4>
+                            <div className="space-y-1 bg-emerald-50/50 p-3 rounded-lg border border-emerald-100/50 text-xs font-sans">
                               <p className="text-emerald-900 leading-relaxed font-medium">
                                 {res.eegAnalysis}
                               </p>
@@ -531,7 +531,7 @@ export default function ProteusArcInterface() {
 
                         {/* Export bar */}
                         <div className="flex justify-end mt-4 pt-3 border-t border-gray-50">
-                          <button className="text-xs text-blue-600 hover:text-blue-800 font-bold uppercase tracking-wider flex items-center gap-1.5 font-serif">
+                          <button className="text-xs text-blue-600 hover:text-blue-800 font-bold uppercase tracking-wider flex items-center gap-1.5 font-sans">
                             <Download className="w-3.5 h-3.5" />
                             Export Data Report
                           </button>
@@ -547,18 +547,18 @@ export default function ProteusArcInterface() {
           {/* TAB 4: LOGS */}
           {activeTab === "logs" && (
             <div className="space-y-6">
-              <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm font-serif">
-                <h2 className="text-xl font-bold text-[#0B1E3F] mb-2 flex items-center gap-2 font-serif">
+              <div className="bg-white rounded-2xl border border-[#D2D6DC] p-8 shadow-sm font-sans">
+                <h2 className="text-xl font-bold text-[#0B1E3F] mb-2 flex items-center gap-2 font-sans">
                   <History className="w-5 h-5 text-blue-600" />
                   Operation Run Logs
                 </h2>
-                <p className="text-xs text-gray-500 mb-6 font-serif">
+                <p className="text-xs text-gray-500 mb-6 font-sans">
                   Complete historical archive of patient algorithm sessions processed on this workspace machine.
                 </p>
 
                 <div className="overflow-x-auto rounded-xl border border-[#E2E8F0]">
                   <table className="min-w-full divide-y divide-[#E2E8F0] text-left text-xs text-[#334155]">
-                    <thead className="bg-[#F8FAFC] text-[10px] font-bold uppercase tracking-wider text-gray-500 font-serif">
+                    <thead className="bg-[#F8FAFC] text-[10px] font-bold uppercase tracking-wider text-gray-500 font-sans">
                       <tr>
                         <th className="px-6 py-4">Timestamp</th>
                         <th className="px-6 py-4">Patient ID</th>
