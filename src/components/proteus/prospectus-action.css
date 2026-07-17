@@ -1,0 +1,118 @@
+.pa-clause-action {
+  --action-color: #f1ede5;
+  display: inline-grid;
+  grid-template-columns: auto minmax(64px, 120px) 18px;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--action-color);
+  font-family: "Recursive Variable", sans-serif;
+  font-size: 13px;
+  font-weight: 540;
+  font-variation-settings: "MONO" .22, "CASL" .06;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.pa-clause-action-signal { --action-color: #7898ff; }
+
+.pa-clause-label {
+  transition: transform 180ms ease, font-variation-settings 220ms ease;
+}
+
+.pa-clause-track {
+  position: relative;
+  display: block;
+  height: 1px;
+  background: color-mix(in srgb, var(--action-color) 46%, transparent);
+}
+
+.pa-clause-track i,
+.pa-clause-track b {
+  position: absolute;
+  display: block;
+  content: "";
+}
+
+.pa-clause-track i {
+  top: -2px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: #7898ff;
+  transform: translateX(-1px);
+  transition: left 260ms cubic-bezier(.2,.75,.2,1), transform 260ms ease;
+}
+
+.pa-clause-track b {
+  top: -1px;
+  right: 15%;
+  width: 28%;
+  height: 3px;
+  background: #050505;
+  transition: width 220ms ease, right 220ms ease;
+}
+
+.pa-clause-arrow {
+  color: #7898ff;
+  font-family: "Recursive Variable", monospace;
+  font-variation-settings: "MONO" 1;
+  font-size: 14px;
+  transition: transform 180ms ease;
+}
+
+.pa-clause-action:hover,
+.pa-clause-action:focus-visible {
+  color: #9ab0ff;
+}
+
+.pa-clause-action:hover .pa-clause-label,
+.pa-clause-action:focus-visible .pa-clause-label {
+  transform: translateX(4px);
+  font-variation-settings: "MONO" .56, "CASL" 0;
+}
+
+.pa-clause-action:hover .pa-clause-track i,
+.pa-clause-action:focus-visible .pa-clause-track i {
+  left: 68%;
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.pa-clause-action:hover .pa-clause-track b,
+.pa-clause-action:focus-visible .pa-clause-track b {
+  right: 7%;
+  width: 42%;
+}
+
+.pa-clause-action:hover .pa-clause-arrow,
+.pa-clause-action:focus-visible .pa-clause-arrow { transform: translate(2px, 2px); }
+
+.pa-clause-action:focus-visible {
+  outline: 2px solid #7898ff;
+  outline-offset: 6px;
+}
+
+.pa-clause-action:disabled {
+  color: #6f6a62;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .pa-clause-action {
+    width: 100%;
+    grid-template-columns: auto 1fr 18px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-clause-action *,
+  .pa-clause-action { transition: none !important; }
+}

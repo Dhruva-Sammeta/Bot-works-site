@@ -1,35 +1,45 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
-import ProteusArcInterface from "./pages/ProteusArcInterface";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { usesNativeScroll } from "@/lib/proteus-routing";
 
-import { ReactLenis } from 'lenis/react';
+const Index = lazy(() => import("./pages/Index"));
+const About = lazy(() => import("./pages/About"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ProteusArc = lazy(() => import("./pages/ProteusArc"));
+const ProteusArcContact = lazy(() => import("./pages/ProteusArcContact"));
+const ProteusArcInterface = lazy(() => import("./pages/ProteusArcInterface"));
+const LegacyAppShell = lazy(() => import("./components/LegacyAppShell"));
 
-const queryClient = new QueryClient();
+export function ProteusRoutes() {
+  return (
+    <Suspense fallback={<div className="route-loading" role="status" aria-label="Loading page" />}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/proteusarc" element={<Navigate to="/proteusarc/homepage" replace />} />
+        <Route path="/proteusarc/homepage" element={<ProteusArc />} />
+        <Route path="/proteusarc/contact" element={<ProteusArcContact />} />
+        <Route path="/proteusarc/interface" element={<ProteusArcInterface />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
+function RouteBoundary() {
+  const location = useLocation();
+  if (usesNativeScroll(location.pathname)) return <ProteusRoutes />;
+  return (
+    <Suspense fallback={<div className="route-loading" role="status" aria-label="Loading page" />}>
+      <LegacyAppShell><ProteusRoutes /></LegacyAppShell>
+    </Suspense>
+  );
+}
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ReactLenis root options={{ lerp: 0.05, wheelMultiplier: 0.7, smoothWheel: true }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/proteusarc/interface" element={<ProteusArcInterface />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ReactLenis>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter>
+    <RouteBoundary />
+  </BrowserRouter>
 );
 
 export default App;
