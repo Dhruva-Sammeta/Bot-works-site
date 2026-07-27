@@ -7,6 +7,7 @@ import { sanitizeSubjectReferenceForFilename } from "@/components/proteus/simula
 import ProteusArcInterface from "@/pages/ProteusArcInterface";
 
 const interfaceStyles = readFileSync(resolve(process.cwd(), "src/pages/proteus-interface.css"), "utf8");
+let mobileLayout = false;
 
 function renderInterface() {
   return render(
@@ -36,10 +37,11 @@ function hexToRgb(hex: string) {
 
 describe("Proteus Arc research interface", () => {
   beforeEach(() => {
+    mobileLayout = false;
     Object.defineProperty(window, "matchMedia", {
       configurable: true,
       value: (query: string) => ({
-        matches: query.includes("prefers-reduced-motion"),
+        matches: query.includes("prefers-reduced-motion") || (mobileLayout && query.includes("max-width")),
         media: query,
         onchange: null,
         addListener: () => {},
@@ -89,6 +91,43 @@ describe("Proteus Arc research interface", () => {
     expect(trace).toHaveAttribute("aria-selected", "true");
     expect(trace).toHaveFocus();
     expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("uses vertical tab semantics and Up/Down keys at mobile widths", () => {
+    mobileLayout = true;
+    renderInterface();
+    const tablist = screen.getByRole("tablist", { name: /evidence transformation stages/i });
+    const source = screen.getByRole("tab", { name: "01 SOURCE" });
+    const trace = screen.getByRole("tab", { name: "02 TRACE" });
+
+    expect(tablist).toHaveAttribute("aria-orientation", "vertical");
+    fireEvent.keyDown(source, { key: "ArrowDown" });
+    expect(trace).toHaveAttribute("aria-selected", "true");
+    expect(trace).toHaveFocus();
+    fireEvent.keyDown(trace, { key: "ArrowUp" });
+    expect(source).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("keeps walkthrough progress independent from inspection tabs and exposes keyboard-scrollable history", () => {
+    vi.useFakeTimers();
+    renderInterface();
+    const progress = screen.getByRole("progressbar", { name: /interface walkthrough progress/i });
+
+    expect(progress).toHaveAttribute("aria-valuenow", "0");
+    fireEvent.click(screen.getByRole("tab", { name: "05 BOUNDARY" }));
+    expect(progress).toHaveAttribute("aria-valuenow", "0");
+
+    fireEvent.change(screen.getByLabelText("Subject reference"), { target: { value: "sub-004" } });
+    fireEvent.change(screen.getByLabelText("EEG dataset"), { target: { value: "eeg-session-02.edf" } });
+    fireEvent.change(screen.getByLabelText("Cognitive baseline"), { target: { value: "MMSE-24" } });
+    fireEvent.click(screen.getByRole("button", { name: "Start interface walkthrough" }));
+    act(() => { vi.advanceTimersByTime(1300); });
+    const runningProgress = progress.getAttribute("aria-valuenow");
+    fireEvent.click(screen.getByRole("tab", { name: "05 BOUNDARY" }));
+    expect(progress).toHaveAttribute("aria-valuenow", runningProgress);
+
+    act(() => { vi.advanceTimersByTime(5000); });
+    expect(screen.getByRole("region", { name: /scroll walkthrough history table/i })).toHaveAttribute("tabindex", "0");
   });
 
   it("marks and focuses only the missing input", () => {

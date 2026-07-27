@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { EvidenceField } from "@/components/proteus/EvidenceField";
 
@@ -10,6 +10,7 @@ const intersectionCallbacks: IntersectionCallback[] = [];
 const rafCallbacks = new Map<number, FrameRequestCallback>();
 let nextFrameId = 0;
 let reducedMotion = false;
+const motionChangeListeners: Array<(event: MediaQueryListEvent) => void> = [];
 let resizeDisconnect: ReturnType<typeof vi.fn>;
 let intersectionDisconnect: ReturnType<typeof vi.fn>;
 
@@ -45,6 +46,7 @@ describe("EvidenceField lifecycle", () => {
     nextFrameId = 0;
     resizeCallbacks.length = 0;
     intersectionCallbacks.length = 0;
+    motionChangeListeners.length = 0;
     rafCallbacks.clear();
     resizeDisconnect = vi.fn();
     intersectionDisconnect = vi.fn();
@@ -52,13 +54,19 @@ describe("EvidenceField lifecycle", () => {
     Object.defineProperty(window, "matchMedia", {
       configurable: true,
       value: (query: string) => ({
-        matches: reducedMotion && query.includes("prefers-reduced-motion"),
+        get matches() { return reducedMotion && query.includes("prefers-reduced-motion"); },
         media: query,
         onchange: null,
         addListener: () => {},
         removeListener: () => {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
+        addEventListener: (type: string, listener: (event: MediaQueryListEvent) => void) => {
+          if (type === "change" && query.includes("prefers-reduced-motion")) motionChangeListeners.push(listener);
+        },
+        removeEventListener: (type: string, listener: (event: MediaQueryListEvent) => void) => {
+          if (type !== "change") return;
+          const index = motionChangeListeners.indexOf(listener);
+          if (index >= 0) motionChangeListeners.splice(index, 1);
+        },
         dispatchEvent: () => false,
       }),
     });
@@ -142,5 +150,22 @@ describe("EvidenceField lifecycle", () => {
 
     unmount();
     expect(rafCallbacks.size).toBe(0);
+  });
+
+  it("stops and restarts the RAF owner when reduced motion changes live", () => {
+    const { unmount } = render(<EvidenceField mode="public" />);
+    expect(rafCallbacks.size).toBe(1);
+    expect(motionChangeListeners).toHaveLength(1);
+
+    reducedMotion = true;
+    act(() => motionChangeListeners[0]({ matches: true } as MediaQueryListEvent));
+    expect(rafCallbacks.size).toBe(0);
+
+    reducedMotion = false;
+    act(() => motionChangeListeners[0]({ matches: false } as MediaQueryListEvent));
+    expect(rafCallbacks.size).toBe(1);
+
+    unmount();
+    expect(motionChangeListeners).toHaveLength(0);
   });
 });

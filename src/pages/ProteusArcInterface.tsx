@@ -95,6 +95,17 @@ function formatTimestamp() {
   return `${new Date().toISOString().replace("T", " ").slice(0, 19)} UTC`;
 }
 
+function useVerticalStageLayout() {
+  const [vertical, setVertical] = useState(() => window.matchMedia("(max-width: 720px)").matches);
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 720px)");
+    const handleChange = (event: MediaQueryListEvent) => setVertical(event.matches);
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+  return vertical;
+}
+
 export default function ProteusArcInterface() {
   const [activeStage, setActiveStage] = useState(0);
   const [patientId, setPatientId] = useState("");
@@ -102,11 +113,13 @@ export default function ProteusArcInterface() {
   const [cognitiveBaseline, setCognitiveBaseline] = useState("");
   const [validationError, setValidationError] = useState("");
   const [isRunning, setIsRunning] = useState(false);
+  const [walkthroughStage, setWalkthroughStage] = useState<number | null>(null);
   const [stageTrace, setStageTrace] = useState<string[]>([]);
   const [resultsList, setResultsList] = useState<ResultData[]>([]);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const timersRef = useRef<number[]>([]);
   const resultRef = useRef<HTMLElement>(null);
+  const verticalStageLayout = useVerticalStageLayout();
 
   const clearTimers = () => {
     timersRef.current.forEach((timer) => window.clearTimeout(timer));
@@ -123,11 +136,11 @@ export default function ProteusArcInterface() {
   }, []);
 
   const handleStageKeyDown = (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
-    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+    if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
     let nextIndex = currentIndex;
-    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % stages.length;
-    if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + stages.length) % stages.length;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (currentIndex + 1) % stages.length;
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (currentIndex - 1 + stages.length) % stages.length;
     if (event.key === "Home") nextIndex = 0;
     if (event.key === "End") nextIndex = stages.length - 1;
     setActiveStage(nextIndex);
@@ -151,11 +164,13 @@ export default function ProteusArcInterface() {
     setValidationError("");
     setIsRunning(true);
     setActiveStage(0);
+    setWalkthroughStage(0);
     setStageTrace(["Source register opened. No data or model is connected."]);
 
     stages.forEach((stage, index) => {
       const timer = window.setTimeout(() => {
         setActiveStage(index);
+        setWalkthroughStage(index);
         setStageTrace((previous) => [...previous, stage.statement]);
         if (index === stages.length - 1) {
           const timestamp = formatTimestamp();
@@ -209,7 +224,7 @@ export default function ProteusArcInterface() {
   };
 
   const stage = stages[activeStage];
-  const progress = Math.round((activeStage / (stages.length - 1)) * 100);
+  const progress = walkthroughStage === null ? 0 : Math.round((walkthroughStage / (stages.length - 1)) * 100);
 
   return (
     <main className="proteus-interface">
@@ -254,7 +269,7 @@ export default function ProteusArcInterface() {
 
           {validationError && <p id="pi-run-error" className="pi-validation" role="alert">{validationError}</p>}
           <ProspectusAction className="pi-start-action" tone="signal" type="submit" disabled={isRunning} ariaLabel="Start interface walkthrough">
-            {isRunning ? `Staging ${activeStage + 1} of ${stages.length}` : "Start interface walkthrough"}
+            {isRunning ? `Staging ${(walkthroughStage ?? 0) + 1} of ${stages.length}` : "Start interface walkthrough"}
           </ProspectusAction>
           <p id="pi-register-note" className="pi-register-note">No files are uploaded. The walkthrough changes deterministic interface states only.</p>
         </form>
@@ -263,7 +278,7 @@ export default function ProteusArcInterface() {
           <EvidenceField mode="instrument" phase={activeStage} />
           <div className="pi-specimen-head">
             <span>SPECIMEN / UI FIXTURE</span>
-            <div role="progressbar" aria-label="Interface walkthrough progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }} /><em>{String(activeStage + 1).padStart(2, "0")} / {String(stages.length).padStart(2, "0")}</em></div>
+            <div role="progressbar" aria-label="Interface walkthrough progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }} /><em>{String(walkthroughStage === null ? 0 : walkthroughStage + 1).padStart(2, "0")} / {String(stages.length).padStart(2, "0")}</em></div>
           </div>
           <div className="pi-specimen-status" role="status" aria-live="polite">
             <span>{stage.short}</span>
@@ -286,7 +301,7 @@ export default function ProteusArcInterface() {
           </div>
         </aside>
 
-        <nav className="pi-stage-spine" role="tablist" aria-label="Evidence transformation stages">
+        <nav className="pi-stage-spine" role="tablist" aria-label="Evidence transformation stages" aria-orientation={verticalStageLayout ? "vertical" : "horizontal"}>
           {stages.map((item, index) => (
             <button
               key={item.id}
@@ -346,7 +361,7 @@ export default function ProteusArcInterface() {
       <section className="pi-history" aria-labelledby="pi-history-title">
         <header><span>Provenance / this session</span><h2 id="pi-history-title">Walkthrough history</h2></header>
         {history.length === 0 ? <p className="pi-history-empty">No walkthrough history in this session.</p> : (
-          <div className="pi-history-table-wrap">
+          <div className="pi-history-table-wrap" role="region" aria-label="Scroll walkthrough history table" tabIndex={0}>
             <table>
               <caption className="pa-sr-only">Interface walkthrough history for this browser session</caption>
               <thead><tr><th scope="col">Timestamp</th><th scope="col">Subject</th><th scope="col">Dataset</th><th scope="col">Cognitive context</th><th scope="col">Status</th></tr></thead>

@@ -65,7 +65,20 @@ export function EvidenceField({ mode = "public", phase, className = "" }: Eviden
     const context = canvas.getContext("2d", { alpha: true });
     if (!context) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reducedMotion = motionQuery.matches;
+
+    const handleMotionChange = (event: MediaQueryListEvent) => {
+      reducedMotion = event.matches;
+      if (reducedMotion) {
+        stopLoop();
+        renderFrame(0);
+      } else {
+        startLoop();
+      }
+    };
+    motionQuery.addEventListener("change", handleMotionChange);
+
     const pointer = { x: 0.62, y: 0.46, tx: 0.62, ty: 0.46, active: 0, targetActive: 0 };
     let width = 1;
     let height = 1;
@@ -387,6 +400,7 @@ export function EvidenceField({ mode = "public", phase, className = "" }: Eviden
       host.removeEventListener("pointerdown", handleTouch);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("scroll", handleScroll);
+      motionQuery.removeEventListener("change", handleMotionChange);
     };
   }, [mode]);
 
