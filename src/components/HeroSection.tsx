@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Build24logoSrc from "@/assets/Build24intro.mp4";
+import { ShaderBackground } from "@/components/ui/blue-noise";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,23 +94,16 @@ const HeroSection = ({
   return (
     <>
       <div ref={sectionRef} className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
-        {/* Background Grid Pattern */}
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '4rem 4rem',
-            maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
-          }}
-        />
+        {/* Neuro Noise Shader Background */}
+        <ShaderBackground className="absolute inset-0 z-0 h-full w-full object-cover" />
+        
+        {/* Dark Glass Overlay for Contrast */}
+        <div className="absolute inset-0 bg-[#000]/50 backdrop-blur-[1px] z-10 pointer-events-none" />
 
-        {/* Logo container */}
-        <div className="relative z-30 flex flex-col items-center justify-center px-6 text-center">
-          <div className="relative py-10 inline-block">
+        {/* Content & Logo container */}
+        <div className="relative z-30 flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
+          {/* Logo container */}
+          <div className="relative inline-block mb-2">
             {/* Glow behind the logo */}
             <div 
               ref={glowRef}
@@ -122,8 +116,33 @@ const HeroSection = ({
               src={logoSource}
               muted
               playsInline
-              className="w-64 sm:w-80 md:w-96 mx-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-105 transition-transform duration-700 opacity-0 rounded-2xl"
+              className="w-40 sm:w-48 md:w-56 mx-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-105 transition-transform duration-700 opacity-0 rounded-2xl"
             />
+          </div>
+
+          {/* Hero text */}
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-2 uppercase font-sans">
+            Build24
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-blue-400 font-bold uppercase tracking-[0.25em] mb-4 font-sans">
+            By Bot Works
+          </p>
+          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed mb-8 font-sans">
+            A 24-hour student hackathon & prototyping challenge. Conceptualize, build, and deploy functional hardware and software under industry mentorship.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href="#support" 
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+            >
+              View Initiatives
+            </a>
+            <a 
+              href="mailto:contact@bot-works.tech?subject=Build24%20Inquiry" 
+              className="px-6 py-3 bg-[#111827]/85 border border-blue-900/30 text-slate-300 hover:bg-blue-950/20 hover:text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all active:scale-95"
+            >
+              Get in Touch
+            </a>
           </div>
         </div>
 

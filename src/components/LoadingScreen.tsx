@@ -1,6 +1,6 @@
 import { useAssets } from "@/contexts/AssetContext";
 import { useEffect, useState, useRef } from "react";
-import videoSrc from "@/assets/loadingscreenintro.webm";
+import videoSrc from "@/assets/Build24intro.mp4";
 
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const { isLoaded } = useAssets();
